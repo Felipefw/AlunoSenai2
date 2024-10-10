@@ -38,7 +38,7 @@ export default function LoginScreen() {
         <TouchableOpacity onPress={() => navigation.navigate('index2.tx')}>
           <Text style={styles.forgotPassword}>voltar</Text>
         </TouchableOpacity>
-        
+
         {/* Substituindo o Button por TouchableOpacity */}
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={() => alert('confira seu e-mail')}>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#D32F2F',
-    marginTop: 20,
+    marginTop: 2,
   },
   button: {
     backgroundColor: 'white',

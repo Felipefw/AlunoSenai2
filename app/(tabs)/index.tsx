@@ -1,70 +1,158 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
+import React from 'react';
+import { StyleSheet, TextInput, View, Text, TouchableOpacity, Image } from 'react-native';
 import { ThemedView } from '@/components/ThemedView';
 
-export default function HomeScreen() {
+export default function LoginScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <ThemedView style={styles.container}>
+      {/* Imagem do SESI no topo */}
+      <Image 
+        source={require('@/assets/images/SesiFot.png')} // Atualize para o nome correto do arquivo
+        style={styles.logo} 
+      />
+      
+      <Text style={styles.forgotPassword}></Text>
+   
+      
+      {/* Bolas decorativas no fundo */}
+      <View style={[styles.redCircle, styles.redCircle1]} />
+      <View style={[styles.redCircle, styles.redCircle2]} />
+      <View style={[styles.redCircle, styles.redCircle4]} />
+      <View style={[styles.redCircle, styles.redCircle3]} />
+
+      {/* Contêiner do formulário de login com fundo transparente */}
+      <View style={styles.formContainer}>
+        <Text style={styles.loginText}>LOGIN</Text>
+        
+        <Text style={styles.forgotPassword}>E-mail:</Text>
+        <TextInput 
+          placeholder="" 
+          style={styles.input} 
+          keyboardType="email-address" 
+          placeholderTextColor="black" 
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">felipe!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Cronograma 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+
+        <Text style={styles.forgotPassword}>Senha</Text>
+        <TextInput 
+          placeholder="" 
+          style={styles.input} 
+          secureTextEntry 
+          placeholderTextColor="black" 
+        />
+
+        <Text style={styles.forgotPassword}>Esqueceu a senha</Text>
+
+        {/* Substituindo o Button por TouchableOpacity */}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => alert('Login efetuado')}>
+            <Text style={styles.buttonText}>ENTRAR</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
     alignItems: 'center',
-    gap: 8,
+    backgroundColor: '#ffffff', // Fundo branco para a tela principal
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  logo: {
+    width: '100%', // Ajuste a largura para ocupar 100%
+    height: 200, // A altura agora é maior
+    resizeMode: 'contain', // Mantém a proporção da imagem
+    marginBottom: 20, // Espaçamento entre a imagem e o formulário
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+  formContainer: {
+    padding: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fundo transparente branco
+    borderRadius: 15,
+    elevation: 5,
+    width: '90%',
+    maxWidth: 350, // Limite de largura para o formulário
+    borderWidth: 1,
+    borderColor: '#D32F2F',
+    alignItems: 'center',
+  },
+  loginText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: 'black',
+  },
+  input: {
+    height: 40,
+    width: '100%',
+    borderColor: '#D32F2F', // Borda vermelha nos campos de entrada
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    marginBottom: 15,
+    color: 'black',
+    textAlign: 'center', // Centralização dos textos nos inputs
+  },
+  forgotPassword: {
+    textAlign: 'center',
+    color: 'black',
+    marginBottom: 20,
+    fontSize: 20, // Aumente esse valor conforme necessário
+  },
+  buttonContainer: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#D32F2F',
+    marginTop: 20,
+  },
+  button: {
+    backgroundColor: 'white', // Fundo branco no botão
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 20,
+  },
+  buttonText: {
+    color: 'black', // Cor preta para o texto do botão
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  // Estilos para as bolas vermelhas no fundo
+  redCircle: {
     position: 'absolute',
+    backgroundColor: '#ff0303',
+    opacity: 0.8,
   },
-});
+  redCircle1: {
+    width: 250,
+    height: 250,
+    borderRadius: 200,
+    top: 150,
+    left: -60,
+  },
+  redCircle2: {
+    width: 220,
+    height: 220,
+    borderRadius: 200,
+    bottom: -25,
+    left: 250,
+  },
+  redCircle3: {
+    width: 150,
+    height: 150,
+    borderRadius: 200,
+    top: 300,
+    left: 60,
+    backgroundColor: '#ff0000',
+  },
+  redCircle4: {
+    width: 150,
+    height: 150,
+    borderRadius: 200,
+    bottom: 105,
+    left: 200,
+    backgroundColor: '#ff0000',
+  },
+}); "d"

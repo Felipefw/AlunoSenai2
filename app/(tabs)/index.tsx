@@ -1,8 +1,11 @@
 import React from 'react';
 import { StyleSheet, TextInput, View, Text, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Importar o hook de navegação
 import { ThemedView } from '@/components/ThemedView';
 
 export default function LoginScreen() {
+  const navigation = useNavigation(); // Inicializar o hook
+
   return (
     <ThemedView style={styles.container}>
       {/* Imagem do SESI no topo */}
@@ -13,7 +16,6 @@ export default function LoginScreen() {
       
       <Text style={styles.forgotPassword}></Text>
    
-      
       {/* Bolas decorativas no fundo */}
       <View style={[styles.redCircle, styles.redCircle1]} />
       <View style={[styles.redCircle, styles.redCircle2]} />
@@ -40,7 +42,10 @@ export default function LoginScreen() {
           placeholderTextColor="black" 
         />
 
-        <Text style={styles.forgotPassword}>Esqueceu a senha</Text>
+        {/* Quando o usuário clicar em "Esqueceu a senha", navegue para "Index2" */}
+        <TouchableOpacity onPress={() => navigation.navigate('index2.tx')}>
+          <Text style={styles.forgotPassword}>Esqueceu a senha</Text>
+        </TouchableOpacity>
 
         {/* Substituindo o Button por TouchableOpacity */}
         <View style={styles.buttonContainer}>
@@ -57,21 +62,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#ffffff', // Fundo branco para a tela principal
+    backgroundColor: '#ffffff',
   },
   logo: {
-    width: '100%', // Ajuste a largura para ocupar 100%
-    height: 200, // A altura agora é maior
-    resizeMode: 'contain', // Mantém a proporção da imagem
-    marginBottom: 20, // Espaçamento entre a imagem e o formulário
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
+    marginBottom: 20,
   },
   formContainer: {
     padding: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fundo transparente branco
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 15,
     elevation: 5,
     width: '90%',
-    maxWidth: 350, // Limite de largura para o formulário
+    maxWidth: 350,
     borderWidth: 1,
     borderColor: '#D32F2F',
     alignItems: 'center',
@@ -86,19 +91,19 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     width: '100%',
-    borderColor: '#D32F2F', // Borda vermelha nos campos de entrada
+    borderColor: '#D32F2F',
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 10,
     marginBottom: 15,
     color: 'black',
-    textAlign: 'center', // Centralização dos textos nos inputs
+    textAlign: 'center',
   },
   forgotPassword: {
     textAlign: 'center',
     color: 'black',
     marginBottom: 20,
-    fontSize: 20, // Aumente esse valor conforme necessário
+    fontSize: 20,
   },
   buttonContainer: {
     borderRadius: 20,
@@ -108,18 +113,17 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    backgroundColor: 'white', // Fundo branco no botão
+    backgroundColor: 'white',
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 20,
   },
   buttonText: {
-    color: 'black', // Cor preta para o texto do botão
+    color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  // Estilos para as bolas vermelhas no fundo
   redCircle: {
     position: 'absolute',
     backgroundColor: '#ff0303',
@@ -155,4 +159,4 @@ const styles = StyleSheet.create({
     left: 200,
     backgroundColor: '#ff0000',
   },
-}); "d"
+});

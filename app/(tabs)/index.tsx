@@ -8,14 +8,14 @@ export default function LoginScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      {/* Imagem do SESI no topo */}
-      <Image 
-        source={require('@/assets/images/SesiFot.png')} // Atualize para o nome correto do arquivo
-        style={styles.logo} 
-      />
-      
-      <Text style={styles.forgotPassword}></Text>
-   
+      {/* Header com logo do SENAI */}
+      <View style={styles.headerStyle}>
+        <Image 
+          source={require('@/assets/images/senai.png')} // Atualize para o nome correto do arquivo
+          style={styles.headerImage} 
+        />
+      </View>
+
       {/* Bolas decorativas no fundo */}
       <View style={[styles.redCircle, styles.redCircle1]} />
       <View style={[styles.redCircle, styles.redCircle2]} />
@@ -64,11 +64,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
   },
-  logo: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'contain',
-    marginBottom: 20,
+  headerStyle: {
+    height: 200, // Altura do cabeçalho
+    backgroundColor: '#ED1F24', // Cor de fundo vermelha
+    width: '100%', // Garante que o cabeçalho ocupe toda a largura
+    justifyContent: 'center', // Alinha a imagem verticalmente
+    alignItems: 'center', // Alinha a imagem horizontalmente
+  },
+  headerImage: {
+    height: '80%', // Ajusta a altura da imagem em relação ao cabeçalho
+    width: '80%',
+    resizeMode: 'contain', // Ajusta a imagem no cabeçalho
   },
   formContainer: {
     padding: 50,
@@ -80,6 +86,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D32F2F',
     alignItems: 'center',
+    marginTop: 70, // Adiciona espaço acima para evitar sobreposição
   },
   loginText: {
     fontSize: 24,

@@ -1,55 +1,82 @@
-import React from 'react';
-import { StyleSheet, TextInput, View, Text, TouchableOpacity, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Importar o hook de navegação
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { ThemedView } from '@/components/ThemedView';
 
-export default function LoginScreen() {
-  const navigation = useNavigation(); // Inicializar o hook
+const ForgotPasswordScreen: React.FC = () => {
+  const navigation = useNavigation();
+  const [email, setEmail] = useState<string>('');
+
+  const isValidEmail = (email: string): boolean => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handleSubmit = async () => {
+    if (!isValidEmail(email)) {
+      Alert.alert('Erro', 'Por favor, insira um email válido');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://seusite.com/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        Alert.alert('Sucesso', 'Confira seu e-mail para instruções de recuperação.');
+      } else {
+        const errorMessage = await response.text();
+        Alert.alert('Erro', errorMessage);
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível enviar a solicitação.');
+    }
+  };
 
   return (
     <ThemedView style={styles.container}>
-      {/* Imagem do SESI no topo */}
       <Image 
-        source={require('@/assets/images/SesiFot.png')} // Atualize para o nome correto do arquivo
+        source={require('@/assets/images/senai.png')} 
         style={styles.logo} 
       />
-      
-      <Text style={styles.forgotPassword}></Text>
-   
-      {/* Bolas decorativas no fundo */}
       <View style={[styles.redCircle, styles.redCircle1]} />
       <View style={[styles.redCircle, styles.redCircle2]} />
-      <View style={[styles.redCircle, styles.redCircle4]} />
       <View style={[styles.redCircle, styles.redCircle3]} />
+      <View style={[styles.redCircle, styles.redCircle4]} />
 
-      {/* Contêiner do formulário de login com fundo transparente */}
+      <Text style={styles.titleText}></Text>
+      <Text style={styles.titleText}></Text>
+      
       <View style={styles.formContainer}>
-        <Text style={styles.loginText}>Esqueceu a senha</Text>
-        
-        <Text style={styles.forgotPassword}> Insira seu e-mail:</Text>
+        <Text style={styles.titleText}>Esqueceu a senha</Text>
+        <Text style={styles.inputLabel}>Insira seu e-mail:</Text>
         <TextInput 
-          placeholder="" 
+          placeholder="Digite seu e-mail" 
           style={styles.input} 
           keyboardType="email-address" 
           placeholderTextColor="black" 
+          onChangeText={setEmail}
+          value={email}
         />
-        
-        {/* Quando o usuário clicar em "Esqueceu a senha", navegue para "Index2" */}
-        <TouchableOpacity onPress={() => navigation.navigate('index2.tx')}>
-          <Text style={styles.forgotPassword}>voltar</Text>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.backButtonText}>Voltar</Text>
         </TouchableOpacity>
-
-        {/* Substituindo o Button por TouchableOpacity */}
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={() => alert('confira seu e-mail')}>
-            <Text style={styles.buttonText}>enviar</Text>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Enviar</Text>
           </TouchableOpacity>
         </View>
       </View>
     </ThemedView>
   );
-}
+};
 
+// Estilos do componente
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -61,6 +88,7 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: 'contain',
     marginBottom: 20,
+    backgroundColor: 'rgba(255, 0, 0, 0.8)',
   },
   formContainer: {
     padding: 50,
@@ -70,15 +98,21 @@ const styles = StyleSheet.create({
     width: '90%',
     maxWidth: 350,
     borderWidth: 1,
-    borderColor: '#D32F2F',
+    borderColor: '#ff0000',
     alignItems: 'center',
   },
-  loginText: {
+  titleText: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
     color: 'black',
+  },
+  inputLabel: {
+    fontSize: 20,
+    color: 'black',
+    marginBottom: 10,
+    textAlign: 'center',
   },
   input: {
     height: 40,
@@ -91,11 +125,11 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
   },
-  forgotPassword: {
+  backButtonText: {
     textAlign: 'center',
     color: 'black',
     marginBottom: 20,
-    fontSize: 20,
+    fontSize: 18,
   },
   buttonContainer: {
     borderRadius: 20,
@@ -141,7 +175,6 @@ const styles = StyleSheet.create({
     borderRadius: 200,
     top: 300,
     left: 60,
-    backgroundColor: '#ff0000',
   },
   redCircle4: {
     width: 150,
@@ -149,6 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 200,
     bottom: 105,
     left: 200,
-    backgroundColor: '#ff0000',
   },
 });
+
+export default ForgotPasswordScreen;
